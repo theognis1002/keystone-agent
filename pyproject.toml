@@ -1,7 +1,7 @@
 [project]
-name = "hackathon"
+name = "keystone"
 version = "0.1.0"
-description = "Add your description here"
+description = "The Delegation Layer — bespoke micro-automations from natural language"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
