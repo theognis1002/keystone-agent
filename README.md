@@ -1,8 +1,8 @@
-# The Delegation Layer
+# Keystone Agent
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A meta-agent that generates bespoke micro-automations on the fly from natural language. Instead of Zapier-style templates or fixed workflows, it writes fresh glue code every time — tailored to the exact request — and executes it in a secure sandboxed environment.
+A meta-agent / delegation layer that generates bespoke micro-automations on the fly from natural language. Instead of Zapier-style templates or fixed workflows, it writes fresh glue code every time — tailored to the exact request — and executes it in a secure sandboxed environment.
 
 ## How It Works
 
