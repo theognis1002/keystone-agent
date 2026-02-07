@@ -1,5 +1,7 @@
 # The Delegation Layer
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A meta-agent that generates bespoke micro-automations on the fly from natural language. Instead of Zapier-style templates or fixed workflows, it writes fresh glue code every time — tailored to the exact request — and executes it in a secure sandboxed environment.
 
 ## How It Works
@@ -16,6 +18,14 @@ you> what python version is in the sandbox?
 
 agent> The sandbox is running Python 3.11.2
 ```
+
+## Features
+
+- **Natural language to code** — describe what you want in plain English; the agent writes and executes the code
+- **Secure sandbox execution** — all generated code runs inside an isolated Docker container, never on your host
+- **Four built-in tools** — Python execution (Jupyter), shell commands, file read, and file write
+- **Multi-turn conversations** — the agent maintains context across turns for iterative workflows
+- **Real-time visibility** — see the agent's reasoning, the code it writes, and the results as they happen
 
 ## Quickstart
 
@@ -92,36 +102,29 @@ Once the sandbox container is running, these are available:
 | VSCode Server | http://localhost:8081/code-server/                    |
 | MCP services  | http://localhost:8081/mcp                             |
 
-## Docker Compose
-
-For a persistent sandbox setup:
-
-```yaml
-services:
-  sandbox:
-    image: ghcr.io/agent-infra/sandbox:latest
-    security_opt:
-      - seccomp:unconfined
-    ports:
-      - "8081:8080"
-    shm_size: "2gb"
-    restart: unless-stopped
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    environment:
-      WORKSPACE: "/home/gem"
-```
-
-```bash
-docker compose up -d
-```
-
 ## Project Structure
 
 ```
 .
-├── main.py           # Single-file CLI agent
-├── pyproject.toml    # Project metadata and dependencies
-├── CLAUDE.md         # Development instructions for AI assistants
+├── main.py                # Entry point — runs the REPL
+├── keystone/
+│   ├── __init__.py        # Package exports (KeystoneAgent)
+│   ├── agent.py           # Agent class — Claude SDK + MCP wiring
+│   ├── cli.py             # Interactive REPL
+│   ├── config.py          # Configuration constants
+│   ├── sandbox.py         # Sandbox client singleton
+│   └── tools/
+│       ├── __init__.py    # Tool registry (ALL_TOOLS)
+│       ├── _helpers.py    # Shared utilities (_ok, _err, _truncate)
+│       ├── files.py       # write_file, read_file
+│       ├── python.py      # execute_python
+│       └── shell.py       # run_shell
+├── tests/                 # Unit and integration tests
+├── pyproject.toml         # Project metadata and dependencies
+├── CLAUDE.md              # Development instructions for AI assistants
 └── README.md
 ```
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

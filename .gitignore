@@ -13,3 +13,20 @@ wheels/
 .env
 .env.*
 !.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*~
+
+# Coverage / testing
+htmlcov/
+.coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

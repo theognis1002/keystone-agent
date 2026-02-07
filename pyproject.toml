@@ -1,10 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "keystone"
 version = "0.1.0"
 description = "The Delegation Layer — bespoke micro-automations from natural language"
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.12"
+authors = [{ name = "theognis1002" }]
+keywords = ["agent", "automation", "claude", "sandbox", "natural-language"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+]
 dependencies = [
     "agent-sandbox>=0.0.21",
     "claude-agent-sdk",
 ]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "integration: requires a running sandbox (deselect with '-m not integration')",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "SIM"]
